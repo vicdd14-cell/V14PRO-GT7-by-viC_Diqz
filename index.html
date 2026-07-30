@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="es" data-prov="V16PRO" data-builder="viC_Diqz_V16PRO">
 <head>
     <meta charset="UTF-8">
@@ -112,7 +111,7 @@
     </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
-
+ 
     <!-- ═══════════ LOGIN ═══════════ -->
     <div id="login-overlay">
         <h1>V16PRO · ACCESO</h1>
@@ -125,7 +124,7 @@
         </div>
         <div id="login-error"></div>
     </div>
-
+ 
     <!-- ═══════════ APP ═══════════ -->
     <div class="app hidden" id="app-container">
         <div class="topbar">
@@ -213,11 +212,11 @@
             </div>
         </div>
     </div>
-
+ 
     <script>
     (function() {
         "use strict";
-
+ 
         // ═══════════ LOGIN ═══════════
         const CODE = ['square','circle','triangle','square'];
         let buf = [];
@@ -237,7 +236,7 @@
                 dots[buf.length-1].style.color = 'var(--amber)'; if (buf.length === 4) checkLogin();
             }
         }));
-
+ 
         /*════════════════════════════════════════════
           PERFILES DE RANGO, MODO, NEUMÁTICOS
           ════════════════════════════════════════════*/
@@ -266,7 +265,7 @@
             IM:{grip:0.70,heightAdj:+8,freqAdj:-0.5,camberAdj:-0.5,toeAdj:+0.05,arbAdj:-2,lsdAccAdj:-10,aeroAdj:1.15,desc:'Lluvia intermedia, altura elevada, suspensión blanda'},
             W:{grip:0.50,heightAdj:+12,freqAdj:-0.8,camberAdj:-0.8,toeAdj:+0.08,arbAdj:-3,lsdAccAdj:-15,aeroAdj:1.20,desc:'Lluvia extrema, máxima altura, mínimo LSD'}
         };
-
+ 
         /*════════════════════════════════════════════
           BASE DE DATOS DE COCHES (con 992 '22)
           ════════════════════════════════════════════*/
@@ -396,7 +395,7 @@
                 { id:"porsche_911_turbo_s_safety",name:"Porsche 911 Turbo S Safety Car (992)",dt:"4WD",hp:650,kg:1640,dist:39,wb:2.45,cg:0.36,tf:1.59,tr:1.57,dvmax:330,af:0,ar:0,gears:8,tdiam:0.66,redline:7500,range:"ROAD",meta:true }
             ]
         };
-
+ 
         /*════════════════════════════════════════════
           BASE DE DATOS DE CIRCUITOS
           ════════════════════════════════════════════*/
@@ -451,7 +450,7 @@
             { id:"zolder",name:"Circuit Zolder",preset:"MIXED",overrides:{},vmax:270,sectors:{slow:5,medium:8,fast:8} },
             { id:"indianapolis_road",name:"Indianapolis Motor Speedway Road Course",preset:"FAST",overrides:{rotation:+0.10},vmax:320,sectors:{slow:4,medium:6,fast:8} }
         ];
-
+ 
         /*════════════════════════════════════════════
           MOTOR DE FÍSICA
           ════════════════════════════════════════════*/
@@ -466,21 +465,23 @@
             const t = TRACKS.find(t => t.name === ui.track.value);
             if (!t) return null;
             const preset = TRACK_PRESETS[t.preset];
+            const aeroFinal = Math.min(1, Math.max(0, preset.aero + (t.overrides.aero||0)));
             return {
                 name:t.name,
                 rotation:preset.rotation + (t.overrides.rotation||0),
                 traction:preset.traction + (t.overrides.traction||0),
                 stability:preset.stability + (t.overrides.stability||0),
-                aero:preset.aero + (t.overrides.aero||0),
+                aero:aeroFinal,
                 bumps:preset.bumps + (t.overrides.bumps||0),
                 vmax:t.vmax,
                 sectors:t.sectors,
-                df:0.3 + (preset.aero*0.7)
+                df:0.3 + (aeroFinal*0.7) // ahora usa el aero YA corregido por el circuito, no el base del preset
             };
         }
-
+ 
         let lastSetup = {};
-
+        let lastCarId = null, lastTrackId = null;
+ 
         function generateSetup(car, track, mode, trac, rot, stab) {
             const r = RANGE[car.range];
             if (!r) return {};
@@ -518,7 +519,8 @@
             const ptw = car.hp / car.kg;
             const lsdAccBase = Math.round(25 + ptw*40 + track.sectors.slow*0.8);
             const lsdBrkBase = car.dt==='MR'?Math.round(15+track.sectors.slow*0.3):8;
-            s.lsdInitR = clamp(12, r.lsdI);
+            const lsdInitBase = car.dt==='4WD' ? 16 : (car.dt==='MR' ? 11 : 9);
+            s.lsdInitR = clamp(lsdInitBase, r.lsdI);
             s.lsdAccR = clamp(lsdAccBase + me.lsdAccAdj + tire.lsdAccAdj + trac*15, r.lsdA);
             s.lsdBrkR = clamp(lsdBrkBase + me.lsdBrkAdj - rot*5, r.lsdB);
             s.lsdInitF = car.dt==='4WD'?10:0;
@@ -528,12 +530,13 @@
             s.downR = clamp(Math.round(car.ar * track.df * tire.aeroAdj), [0,car.ar]);
             return s;
         }
-
+ 
         function clamp(value, range, step=1) {
-            const v = Math.round(value/step)*step;
+            const raw = Math.round(value/step)*step;
+            const v = parseFloat(raw.toFixed(4)); // evita basura de punto flotante (0.1*7=0.7000000000000001)
             return Math.min(range[1], Math.max(range[0], v));
         }
-
+ 
         function scoreSetup(s, car, track) {
             const cl = (v,a,b) => Math.min(b, Math.max(a,v));
             const tIn = cl(50 + s.toeF*-50 + s.camberF*6, 0,100);
@@ -545,7 +548,7 @@
             const total = w.tIn + w.mid + w.ex + w.st + w.brk;
             return Math.round((tIn*w.tIn + mid*w.mid + ex*w.ex + st*w.st + brk*w.brk)/total);
         }
-
+ 
         /*════════════════════════════════════════════
           UI
           ════════════════════════════════════════════*/
@@ -567,25 +570,25 @@
             lsdAccF:'LSD Acel. Del.',lsdAccR:'LSD Acel. Tras.',lsdBrkF:'LSD Fren. Del.',lsdBrkR:'LSD Fren. Tras.',
             downF:'Carga Aer. Del.',downR:'Carga Aer. Tras.'
         };
-
+ 
         function buildUI() {
             ui.susp.innerHTML = SUSP.map(k => `<div class="setup-row"><label>${NAMES[k]}</label><input id="in_${k}" value="0"></div>`).join('');
             ui.lsd.innerHTML = LSD_AERO.map(k => `<div class="setup-row"><label>${NAMES[k]}</label><input id="in_${k}" value="0"></div>`).join('');
             ui.gears.innerHTML = Array.from({length:6}, (_,i) => `<input id="gear${i+1}" value="0.000">`).join('');
         }
-
+ 
         function populate() {
             ui.cat.innerHTML = Object.keys(CARS).map(c => `<option>${c}</option>`).join('');
             ui.track.innerHTML = TRACKS.map(t => `<option>${t.name}</option>`).join('');
             ui.cat.value = 'Gr.3'; updateCars(); ui.track.value = 'Suzuka Circuit';
         }
-
+ 
         function updateCars() {
             const cars = CARS[ui.cat.value];
             ui.auto.innerHTML = cars ? cars.map(c => `<option>${c.meta?'★ ':''}${c.name}</option>`).join('') : '';
             calc();
         }
-
+ 
         function calc() {
             const car = getCar(), track = getTrack();
             if (!car || !track) return;
@@ -594,7 +597,7 @@
             const rot = parseFloat($('slider-rotation').value)/100;
             const stab = parseFloat($('slider-stability').value)/100;
             const s = generateSetup(car, track, mode, trac, rot, stab);
-
+ 
             for (let k in s) {
                 const el = $('in_'+k);
                 if (!el) continue;
@@ -607,15 +610,33 @@
                 }
             }
             lastSetup = {...s};
-
-            const vmax = Math.min(car.dvmax, track.vmax+10);
-            ui.vmax.value = vmax;
-            const fd = (RANGE[car.range].fd[0] + RANGE[car.range].fd[1])/2;
-            ui.transFinal.value = fd.toFixed(3);
+ 
+            // FIX: antes esto pisaba vmax/transFinal en CADA recálculo (mover slider, cambiar modo, etc.),
+            // así que una edición manual del usuario se perdía al instante. Ahora solo se autocompletan
+            // cuando realmente cambia el coche o el circuito; el resto de veces se respeta lo que haya en el input.
+            const carChanged = lastCarId !== car.id;
+            const trackChanged = lastTrackId !== track.name;
+            if (carChanged || trackChanged) {
+                ui.vmax.value = Math.min(car.dvmax, track.vmax+10);
+            }
+            if (carChanged) {
+                const fdDefault = (RANGE[car.range].fd[0] + RANGE[car.range].fd[1])/2;
+                ui.transFinal.value = fdDefault.toFixed(3);
+            }
+            lastCarId = car.id; lastTrackId = track.name;
+ 
+            const vmax = parseFloat(ui.vmax.value) || Math.min(car.dvmax, track.vmax+10);
+            const fd = parseFloat(ui.transFinal.value) || (RANGE[car.range].fd[0]+RANGE[car.range].fd[1])/2;
             for (let i=0;i<6;i++) {
                 const ratio = (car.gears*vmax)/((i+1)*(car.redline/1000)*car.tdiam*60*0.001)*0.8;
                 $('gear'+(i+1)).value = ratio.toFixed(3);
             }
+            updateDerivedUI(s, car, track, mode, fd);
+        }
+ 
+        // Extraído de calc(): recalcula score/radar/balance/sheet a partir de un setup dado.
+        // Se reusa también cuando el usuario edita a mano los inputs de suspensión/LSD/aero.
+        function updateDerivedUI(s, car, track, mode, fd) {
             const score = scoreSetup(s, car, track);
             ui.score.innerText = score;
             ui.score.className = 'score-badge '+(score>85?'score-high':score>70?'score-mid':'score-low');
@@ -627,10 +648,11 @@
             const cx=50,cy=50,rad=40;
             document.getElementById('radar-polygon').setAttribute('points', pts.map((p,i) => {
                 const a = Math.PI*2*i/5 - Math.PI/2;
-                return `${(cx+Math.cos(a)*rad*p[0]/100).toFixed(1)},${(cy+Math.sin(a)*rad*p[0]/100).toFixed(1)}`;
+                const clamped = Math.min(100, Math.max(0, p[0]));
+                return `${(cx+Math.cos(a)*rad*clamped/100).toFixed(1)},${(cy+Math.sin(a)*rad*clamped/100).toFixed(1)}`;
             }).join(' '));
             const bias = Math.round(50 + s.toeR*50 + (s.arbR-s.arbF)*3);
-            document.getElementById('balance-fill').style.width = bias+'%';
+            document.getElementById('balance-fill').style.width = Math.min(100,Math.max(0,bias))+'%';
             document.getElementById('balance-label').innerText = 'Bias · '+bias+'%';
             const txt = `V16PRO · Engineering Lab · viC_Diqz\n${car.name} | ${track.name} | ${mode} | Score ${score}\nH ${s.heightF}/${s.heightR} ARB ${s.arbF}/${s.arbR}\nCMP ${s.dampCF}/${s.dampCR} EXT ${s.dampEF}/${s.dampER}\nFRQ ${s.freqF}/${s.freqR} CMB ${s.camberF}/${s.camberR}\nTOE ${s.toeF}/${s.toeR} LSD ${s.lsdInitR}/${s.lsdAccR}/${s.lsdBrkR}\nAERO ${s.downF}/${s.downR} FD ${fd.toFixed(3)}`;
             ui.exportTxt.value = txt; ui.sheet.innerHTML = txt.replace(/\n/g,'<br>');
@@ -638,7 +660,27 @@
             const tire = TIRE_EFFECTS[ui.neumaticos.value];
             ui.knowBox.innerText = `🧪 ${me.desc}. Neumático: ${ui.neumaticos.value} (${tire.desc}). LSD Acc: ${s.lsdAccR} | LSD Brk: ${s.lsdBrkR} | Altura: ${s.heightF}/${s.heightR} | Camber: ${s.camberF}°/${s.camberR}°`;
         }
-
+ 
+        // Lee el setup actual directamente de los inputs (para cuando el usuario edita a mano)
+        function readCurrentSetup() {
+            const s = {};
+            [...SUSP, ...LSD_AERO].forEach(k => {
+                const el = $('in_'+k);
+                s[k] = el ? (parseFloat(el.value)||0) : 0;
+            });
+            return s;
+        }
+ 
+        // FIX: antes, editar a mano un input de suspensión/LSD/aero no actualizaba score, radar,
+        // balance ni la ficha de exportación — quedaban desincronizados del setup real en pantalla.
+        function onManualEdit() {
+            const car = getCar(), track = getTrack();
+            if (!car || !track) return;
+            const mode = document.querySelector('.chip.active')?.dataset.mode || 'MIX';
+            const fd = parseFloat(ui.transFinal.value) || 0;
+            updateDerivedUI(readCurrentSetup(), car, track, mode, fd);
+        }
+ 
         /*════════════════════════════════════════════
           EXPORTACIÓN MEJORADA
           ════════════════════════════════════════════*/
@@ -661,7 +703,7 @@
                 link.click();
             } catch(e) { alert('Error al generar la imagen: '+e); }
         }
-
+ 
         function saveConfig() {
             const config = {
                 cat:ui.cat.value, auto:ui.auto.value, track:ui.track.value,
@@ -675,7 +717,7 @@
             navigator.clipboard.writeText(json);
             alert('✅ Configuración copiada al portapapeles.');
         }
-
+ 
         function loadConfig() {
             const json = prompt('Pega la configuración JSON:');
             if (!json) return;
@@ -699,12 +741,16 @@
                 }, 50);
             } catch(e) { alert('JSON inválido.'); }
         }
-
+ 
         /*════════════════════════════════════════════
           INIT
           ════════════════════════════════════════════*/
         function initApp() {
             buildUI(); populate();
+            [...SUSP, ...LSD_AERO].forEach(k => {
+                const el = $('in_'+k);
+                if (el) el.addEventListener('input', onManualEdit);
+            });
             ui.cat.addEventListener('change', updateCars);
             ui.auto.addEventListener('change', calc);
             ui.track.addEventListener('change', calc);
