@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="es" data-prov="V16PRO" data-builder="viC_Diqz_V16PRO">
 <head>
     <meta charset="UTF-8">
@@ -25,6 +26,7 @@
             --purple: #a78bfa;
             --red: #f43f5e;
             --orange: #f97316;
+            --electric-blue: #3b82f6;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { color-scheme: dark; }
@@ -59,59 +61,105 @@
         .chip { padding: 7px 14px; border-radius: 20px; font-size: 10px; font-weight: 700; cursor: pointer; border: 1px solid rgba(255,255,255,0.08); background: transparent; color: var(--muted); transition: 0.2s; }
         .chip.active { box-shadow: 0 0 18px currentColor; }
         .chip.fluid { color: #f59e0b; } .chip.fluid.active { background: rgba(245,158,11,0.15); }
-        .chip.mix { color: var(--blue); } .chip.mix.active { background: rgba(34,211,238,0.15); }
+        .chip.mix { color: var(--electric-blue); } .chip.mix.active { background: rgba(59,130,246,0.15); }
         .chip.master { color: var(--green); } .chip.master.active { background: rgba(52,211,153,0.15); }
         .chip.drift { color: var(--purple); } .chip.drift.active { background: rgba(168,133,250,0.15); }
         .chip.drag { color: var(--red); } .chip.drag.active { background: rgba(244,63,94,0.15); }
         .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         @media(max-width:900px) { .main-grid { grid-template-columns: 1fr; } }
-        .panel { background: linear-gradient(180deg, #0d1320 0%, #050b15 100%); border: 1px solid var(--border); border-radius: 16px; padding: 16px; box-shadow: 0 0 40px rgba(0,0,0,0.5); backdrop-filter: blur(24px); }
+        .panel {
+            background: linear-gradient(180deg, #0d1320 0%, #050b15 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.03), 0 4px 30px rgba(0,0,0,0.6);
+            backdrop-filter: blur(24px);
+            transition: box-shadow 0.3s ease;
+        }
         .panel-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; display: flex; align-items: center; gap: 7px; }
         .setup-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr)); gap: 4px; }
         .setup-row { display: flex; align-items: center; gap: 3px; font-size: 9px; justify-content: space-between; }
         .setup-row label { color: var(--dim); min-width: 70px; font-size: 8px; }
         .setup-row input {
             flex: 1; background: var(--input); border: 1px solid var(--border);
-            border-radius: 5px; padding: 5px; text-align: center; font-family: monospace;
+            border-radius: 5px; padding: 5px; text-align: center; font-family: 'Inter', monospace;
             font-size: 10px; color: var(--blue); min-width: 42px; outline: none;
             transition: box-shadow 0.15s ease, border-color 0.15s ease;
+            font-variant-numeric: tabular-nums;
         }
-        /* ✨ Animación flash neón */
         .setup-row input.pulse-neon {
-            animation: flashNeon 0.6s ease-out;
+            animation: flashNeon 0.2s ease-out;
         }
         @keyframes flashNeon {
-            0%   { box-shadow: 0 0 4px var(--amber), 0 0 12px var(--amber); border-color: var(--amber); color: #fff; }
-            50%  { box-shadow: 0 0 18px var(--amber), 0 0 30px var(--orange); border-color: var(--orange); }
+            0%   { box-shadow: 0 0 2px var(--amber), 0 0 6px var(--amber); border-color: var(--amber); color: #fff; }
+            50%  { box-shadow: 0 0 10px var(--amber), 0 0 18px var(--orange); border-color: var(--orange); }
             100% { box-shadow: 0 0 0px var(--amber); border-color: var(--border); color: var(--blue); }
         }
         .btn-amber { background: linear-gradient(135deg, var(--amber), var(--orange)); border: none; color: #000; font-weight: 700; font-size: 11px; padding: 11px 24px; border-radius: 12px; cursor: pointer; width: 100%; margin-top: 8px; transition: 0.2s; }
         .btn-amber:hover { filter: brightness(1.1); }
         .balance-bar { height: 4px; border-radius: 2px; background: linear-gradient(to right, var(--blue), rgba(255,255,255,0.08), var(--red)); margin: 8px 0; overflow: hidden; position: relative; }
-        .balance-fill { height: 100%; border-radius: 2px; transition: width 0.5s; background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+        .balance-fill { height: 100%; border-radius: 2px; transition: width 0.3s; background: var(--amber); box-shadow: 0 0 8px var(--amber); }
         .radar-svg { width: 160px; height: 160px; margin: 0 auto; display: block; }
-        .eng-sheet { background: #080e1a; border: 1px solid var(--border2); border-radius: 14px; padding: 16px; font-family: monospace; font-size: 9px; color: var(--text); flex: 1; overflow-y: auto; max-height: 250px; white-space: pre-wrap; }
+        .eng-sheet { background: #080e1a; border: 1px solid var(--border2); border-radius: 14px; padding: 16px; font-family: 'Inter', monospace; font-size: 9px; color: var(--text); flex: 1; overflow-y: auto; max-height: 250px; white-space: pre-wrap; font-variant-numeric: tabular-nums; }
         .export-textarea { width: 100%; height: 70px; background: var(--input); border: 1px solid var(--border); border-radius: 8px; padding: 8px; font-family: monospace; font-size: 8px; color: var(--text); resize: vertical; margin-bottom: 8px; }
         .knowledge-box { background: rgba(245,166,35,0.05); border: 1px solid rgba(245,166,35,0.2); border-radius: 8px; padding: 8px; font-size: 9px; color: var(--amber); margin-top: 8px; line-height: 1.5; min-height: 40px; }
-        .score-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; font-family: monospace; }
-        .score-high { background: rgba(52,211,153,0.2); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
-        .score-mid { background: rgba(245,166,35,0.2); color: var(--amber); border: 1px solid rgba(245,166,35,0.3); }
-        .score-low { background: rgba(244,63,94,0.2); color: var(--red); border: 1px solid rgba(244,63,94,0.3); }
+        .score-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 64px; height: 64px; border-radius: 50%;
+            font-size: 22px; font-weight: 700; font-family: 'Inter', monospace;
+            position: relative;
+            background: radial-gradient(circle at 30% 30%, rgba(52,211,153,0.15), transparent 70%);
+            box-shadow: 0 0 20px rgba(52,211,153,0.1);
+        }
+        .score-badge::after {
+            content: '';
+            position: absolute; inset: -6px; border-radius: 50%;
+            border: 2px solid currentColor;
+            opacity: 0.2;
+            animation: breathe 3s ease-in-out infinite;
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.15; }
+            50% { transform: scale(1.08); opacity: 0.35; }
+        }
+        .score-high { color: var(--green); }
+        .score-mid { color: var(--amber); }
+        .score-low { color: var(--red); }
         .gears-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 3px; }
-        .gears-grid input { width: 100%; background: var(--input); border: 1px solid var(--border); border-radius: 5px; padding: 6px 3px; text-align: center; font-family: monospace; font-size: 9px; color: #818cf8; }
+        .gears-grid input { width: 100%; background: var(--input); border: 1px solid var(--border); border-radius: 5px; padding: 6px 3px; text-align: center; font-family: monospace; font-size: 9px; color: #818cf8; font-variant-numeric: tabular-nums; }
         .slider-group { margin-bottom: 10px; }
-        .custom-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 5px; border-radius: 3px; outline: none; }
-        .custom-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; cursor: pointer; }
-        .slider-traction { background: linear-gradient(to right, var(--orange), var(--amber)); }
-        .slider-traction::-webkit-slider-thumb { background: var(--orange); box-shadow: 0 0 12px var(--orange); }
-        .slider-rotation { background: linear-gradient(to right, #e11d48, var(--amber)); }
-        .slider-rotation::-webkit-slider-thumb { background: #e11d48; box-shadow: 0 0 12px #e11d48; }
-        .slider-stability { background: linear-gradient(to right, #06b6d4, var(--amber)); }
-        .slider-stability::-webkit-slider-thumb { background: #06b6d4; box-shadow: 0 0 12px #06b6d4; }
+        .custom-slider {
+            -webkit-appearance: none; appearance: none;
+            width: 100%; height: 4px; border-radius: 2px; outline: none;
+            background: var(--input);
+            border: 1px solid var(--border);
+        }
+        .custom-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            width: 16px; height: 16px; border-radius: 50%;
+            cursor: pointer; border: 2px solid var(--amber);
+            background: #0a0f1a;
+            box-shadow: 0 0 8px var(--amber);
+            transition: box-shadow 0.15s;
+        }
+        .custom-slider::-webkit-slider-thumb:hover { box-shadow: 0 0 14px var(--amber); }
+        .slider-traction::-webkit-slider-thumb { border-color: var(--orange); box-shadow: 0 0 8px var(--orange); }
+        .slider-rotation::-webkit-slider-thumb { border-color: #e11d48; box-shadow: 0 0 8px #e11d48; }
+        .slider-stability::-webkit-slider-thumb { border-color: var(--electric-blue); box-shadow: 0 0 8px var(--electric-blue); }
+        .export-overlay {
+            position: fixed; inset: 0; z-index: 9999;
+            background: rgba(2,6,16,0.9);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 16px; font-family: 'Inter', sans-serif; color: var(--amber);
+            opacity: 0; pointer-events: none; transition: opacity 0.2s;
+        }
+        .export-overlay.active { opacity: 1; pointer-events: auto; }
+        .export-progress { width: 200px; height: 6px; background: var(--input); border-radius: 3px; overflow: hidden; }
+        .export-progress-bar { height: 100%; width: 0%; background: var(--amber); transition: width 0.4s ease; }
     </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
- 
+
     <!-- ═══════════ LOGIN ═══════════ -->
     <div id="login-overlay">
         <h1>V16PRO · ACCESO</h1>
@@ -124,7 +172,14 @@
         </div>
         <div id="login-error"></div>
     </div>
- 
+
+    <!-- ═══════════ EXPORT OVERLAY ═══════════ -->
+    <div id="export-overlay" class="export-overlay">
+        <div style="font-size:18px;font-weight:700;">EXPORTING...</div>
+        <div class="export-progress"><div id="export-progress-bar" class="export-progress-bar"></div></div>
+        <div id="export-status" style="font-size:10px;color:var(--muted)"></div>
+    </div>
+
     <!-- ═══════════ APP ═══════════ -->
     <div class="app hidden" id="app-container">
         <div class="topbar">
@@ -142,7 +197,7 @@
             <div class="field"><label>Categoría</label><select id="categoria"></select></div>
             <div class="field"><label>Vehículo</label><select id="auto"></select></div>
             <div class="field"><label>Circuito</label><select id="circuito"></select></div>
-            <div class="field"><label>Neumáticos</label><select id="neumaticos"><option value="RS">RS</option><option value="RM" selected>RM</option><option value="RH">RH</option><option value="IM">IM</option><option value="W">W</option></select></div>
+            <div class="field"><label>Neumáticos</label><select id="neumaticos"><option value="RS">RS</option><option value="RM" selected>RM</option><option value="RH">RH</option><option value="IM">IM</option><option value="W">W</option><option value="DT">DT</option><option value="SN">SN</option></select></div>
         </div>
         <div class="ai-panel">
             <span class="ai-icon">🔬</span>
@@ -160,7 +215,7 @@
         <div class="main-grid">
             <div style="display:flex;flex-direction:column;gap:12px" id="capture-area">
                 <div class="panel">
-                    <div class="panel-title" style="color:var(--amber)">⚙ Setup · <span id="mode-label">MIX</span> · <span id="setup-score" class="score-badge score-high">92</span></div>
+                    <div class="panel-title" style="color:var(--amber)">⚙ Setup · <span id="mode-label">MIX</span></div>
                     <div class="setup-grid" id="susp-inputs"></div>
                     <div class="setup-grid" id="lsd-aero-inputs" style="margin-top:8px"></div>
                     <div class="balance-bar"><div class="balance-fill" id="balance-fill" style="width:50%"></div></div>
@@ -198,13 +253,16 @@
                     <div class="panel-title" style="color:var(--purple)">🎚️ Fine Tuning</div>
                     <div class="slider-group"><div style="display:flex;justify-content:space-between;font-size:9px"><span style="color:var(--orange);font-weight:700">🚀 TRACCIÓN</span><span id="slider-traction-val">45%</span></div><input type="range" id="slider-traction" class="custom-slider slider-traction" min="5" max="60" value="45"></div>
                     <div class="slider-group"><div style="display:flex;justify-content:space-between;font-size:9px"><span style="color:#e11d48;font-weight:700">💃 ROTACIÓN</span><span id="slider-rotation-val">+0.20</span></div><input type="range" id="slider-rotation" class="custom-slider slider-rotation" min="-50" max="50" value="20"></div>
-                    <div class="slider-group"><div style="display:flex;justify-content:space-between;font-size:9px"><span style="color:#06b6d4;font-weight:700">🛤️ ESTABILIDAD</span><span id="slider-stability-val">-0.25</span></div><input type="range" id="slider-stability" class="custom-slider slider-stability" min="-50" max="50" value="-25"></div>
+                    <div class="slider-group"><div style="display:flex;justify-content:space-between;font-size:9px"><span style="color:var(--electric-blue);font-weight:700">🛤️ ESTABILIDAD</span><span id="slider-stability-val">-0.25</span></div><input type="range" id="slider-stability" class="custom-slider slider-stability" min="-50" max="50" value="-25"></div>
                 </div>
-                <div class="panel" style="flex:1">
+                <div class="panel" style="flex:1;display:flex;flex-direction:column;">
                     <div class="panel-title" style="color:var(--green)">📄 Engineering Sheet</div>
                     <div class="eng-sheet" id="eng-sheet"></div>
                     <textarea class="export-textarea" id="export-text" readonly></textarea>
-                    <div style="display:flex;gap:5px">
+                    <div style="display:flex;gap:5px;align-items:center;">
+                        <div style="flex:1;display:flex;justify-content:center;">
+                            <span id="setup-score" class="score-badge score-high">92</span>
+                        </div>
                         <button class="btn-amber" style="flex:1;font-size:10px;padding:8px" id="btn-calc">⚡ RECALCULAR</button>
                         <button class="btn-amber" style="flex:1;font-size:10px;padding:8px;background:var(--panel2);color:var(--text);border:1px solid var(--border)" id="btn-copy">📋 Copiar</button>
                     </div>
@@ -212,11 +270,11 @@
             </div>
         </div>
     </div>
- 
+
     <script>
     (function() {
         "use strict";
- 
+
         // ═══════════ LOGIN ═══════════
         const CODE = ['square','circle','triangle','square'];
         let buf = [];
@@ -236,7 +294,7 @@
                 dots[buf.length-1].style.color = 'var(--amber)'; if (buf.length === 4) checkLogin();
             }
         }));
- 
+
         /*════════════════════════════════════════════
           PERFILES DE RANGO, MODO, NEUMÁTICOS
           ════════════════════════════════════════════*/
@@ -244,28 +302,57 @@
             LMP1:{hF:[50,90],hR:[50,90],arbF:[1,10],arbR:[1,10],dampCF:[25,50],dampCR:[25,50],dampEF:[35,60],dampER:[35,60],freqF:[2.0,5.5],freqR:[2.0,5.5],camberF:[0,6],camberR:[0,6],toeF:[-1.5,1.5],toeR:[-1.5,1.5],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[3.2,5.5]},
             LMH:{hF:[50,95],hR:[50,95],arbF:[1,10],arbR:[1,10],dampCF:[25,50],dampCR:[25,50],dampEF:[35,60],dampER:[35,60],freqF:[2.0,5.5],freqR:[2.0,5.5],camberF:[0,6],camberR:[0,6],toeF:[-1.5,1.5],toeR:[-1.5,1.5],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[3.2,5.5]},
             GROUP_C:{hF:[50,90],hR:[50,90],arbF:[1,10],arbR:[1,10],dampCF:[25,50],dampCR:[25,50],dampEF:[35,60],dampER:[35,60],freqF:[2.0,5.5],freqR:[2.0,5.5],camberF:[0,6],camberR:[0,6],toeF:[-1.5,1.5],toeR:[-1.5,1.5],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[3.0,5.0]},
-            GT1:{hF:[50,95],hR:[50,95],arbF:[1,10],arbR:[1,10],dampCF:[20,45],dampCR:[20,45],dampEF:[30,55],dampER:[30,55],freqF:[2.0,5.0],freqR:[2.0,5.0],camberF:[0,6],camberR:[0,6],toeF:[-1.2,1.2],toeR:[-1.2,1.2],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[3.0,5.0]},
+            GT1:{hF:[50,95],hR:[50,95],arbF:[1,10],arbR:[1,10],dampCF:[25,45],dampCR:[25,45],dampEF:[35,55],dampER:[35,55],freqF:[2.0,5.0],freqR:[2.0,5.0],camberF:[0,6],camberR:[0,6],toeF:[-1.2,1.2],toeR:[-1.2,1.2],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[3.0,5.0]},
             GT500:{hF:[50,100],hR:[50,100],arbF:[1,10],arbR:[1,10],dampCF:[25,45],dampCR:[25,45],dampEF:[35,55],dampER:[35,55],freqF:[2.0,5.0],freqR:[2.0,5.0],camberF:[0,6],camberR:[0,6],toeF:[-1,1],toeR:[-1,1],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[3.2,5.5]},
-            GT3:{hF:[50,100],hR:[50,100],arbF:[1,10],arbR:[1,10],dampCF:[20,40],dampCR:[20,40],dampEF:[30,50],dampER:[30,50],freqF:[1.5,5.0],freqR:[1.5,5.0],camberF:[0,6],camberR:[0,6],toeF:[-1,1],toeR:[-1,1],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[3.0,5.5]},
+            GT3:{hF:[50,100],hR:[50,100],arbF:[1,10],arbR:[1,10],dampCF:[25,40],dampCR:[25,40],dampEF:[35,50],dampER:[35,50],freqF:[1.8,5.0],freqR:[1.8,5.0],camberF:[0,6],camberR:[0,6],toeF:[-1,1],toeR:[-1,1],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[3.0,5.5]},
             GT4:{hF:[55,105],hR:[55,105],arbF:[1,8],arbR:[1,8],dampCF:[25,45],dampCR:[25,45],dampEF:[35,55],dampER:[35,55],freqF:[1.8,4.5],freqR:[1.8,4.5],camberF:[0,5],camberR:[0,5],toeF:[-0.8,0.8],toeR:[-0.8,0.8],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[3.0,5.5]},
             RALLY:{hF:[60,120],hR:[60,120],arbF:[1,8],arbR:[1,8],dampCF:[25,45],dampCR:[25,45],dampEF:[35,55],dampER:[35,55],freqF:[1.8,4.5],freqR:[1.8,4.5],camberF:[0,5],camberR:[0,5],toeF:[-0.8,0.8],toeR:[-0.8,0.8],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[3.0,5.5]},
             ROAD:{hF:[80,130],hR:[80,130],arbF:[1,6],arbR:[1,6],dampCF:[15,35],dampCR:[15,35],dampEF:[25,45],dampER:[25,45],freqF:[1.0,3.0],freqR:[1.0,3.0],camberF:[0,4],camberR:[0,4],toeF:[-0.5,0.5],toeR:[-0.5,0.5],lsdI:[5,60],lsdA:[5,60],lsdB:[5,60],fd:[2.5,4.5]}
         };
         const MODE_EFFECTS = {
-            FLUID:{desc:'Rotación y tracción equilibradas, suspensión blanda',heightAdj:{F:-2,R:-2},arbAdj:{F:+1,R:-1},lsdAccAdj:-10,lsdBrkAdj:+5,camberAdj:{F:0,R:0},toeAdj:{F:0,R:0},freqAdj:{F:-0.3,R:-0.3}},
-            MIX:{desc:'Equilibrio rotación/tracción',heightAdj:{F:0,R:0},arbAdj:{F:0,R:0},lsdAccAdj:0,lsdBrkAdj:0,camberAdj:{F:0,R:0},toeAdj:{F:0,R:0},freqAdj:{F:0,R:0}},
-            MASTER:{desc:'Máxima precisión, suspensión firme',heightAdj:{F:-5,R:-5},arbAdj:{F:+2,R:+2},lsdAccAdj:10,lsdBrkAdj:-5,camberAdj:{F:-0.5,R:-0.3},toeAdj:{F:-0.05,R:0.05},freqAdj:{F:+0.4,R:+0.4}},
-            DRIFT:{desc:'Derrape controlado, rotación extrema',heightAdj:{F:-3,R:+5},arbAdj:{F:-2,R:-4},lsdAccAdj:20,lsdBrkAdj:-15,camberAdj:{F:-0.5,R:+1.5},toeAdj:{F:-0.10,R:+0.25},freqAdj:{F:-0.2,R:-0.5}},
-            DRAG:{desc:'Aceleración pura, máxima tracción',heightAdj:{F:-10,R:-10},arbAdj:{F:+3,R:+3},lsdAccAdj:25,lsdBrkAdj:15,camberAdj:{F:-1.0,R:-1.0},toeAdj:{F:0.05,R:0.05},freqAdj:{F:+0.6,R:+0.3}}
+            // FIX: se agrega aeroMult — ningún perfil tocaba la carga aerodinámica antes. Un DRAG corría
+            // casi el paquete de ala completo (resta velocidad punta sin ningún beneficio en línea recta)
+            // y un DRIFT corría con toda la carga que el track/neumático le daban, cuando en realidad
+            // menos carga aero facilita el movimiento del tren trasero. MASTER sube un poco la carga
+            // para máxima estabilidad de precisión; MIX queda neutro (factor 1.0, sin cambios).
+            FLUID:{desc:'Rotación y tracción equilibradas, suspensión blanda',heightAdj:{F:-2,R:-2},arbAdj:{F:+1,R:-1},camberAdj:{F:0,R:0},toeAdj:{F:0,R:0},freqAdj:{F:-0.3,R:-0.3},aeroMult:0.85},
+            MIX:{desc:'Equilibrio rotación/tracción',heightAdj:{F:0,R:0},arbAdj:{F:0,R:0},camberAdj:{F:0,R:0},toeAdj:{F:0,R:0},freqAdj:{F:0,R:0},aeroMult:1.0},
+            MASTER:{desc:'Máxima precisión, suspensión firme',heightAdj:{F:-5,R:-5},arbAdj:{F:+2,R:+2},camberAdj:{F:-0.5,R:-0.3},toeAdj:{F:-0.05,R:0.05},freqAdj:{F:+0.4,R:+0.4},aeroMult:1.10},
+            // DRIFT: Inicial muy alto (casi bloqueado, ambas ruedas patinan juntas de forma predecible),
+            // Acel. alto pero NO al máximo (deja algo de diferencial para poder modular el ángulo con el
+            // gas), Frenada con lock notorio (comportamiento consistente al soltar/pisar en la transición).
+            // Carga aero reducida (0.35): menos estabilidad trasera = tren trasero más fácil de mover.
+            DRIFT:{desc:'Derrape controlado, rotación extrema',heightAdj:{F:-3,R:+6},arbAdj:{F:-1,R:+3},camberAdj:{F:+0.8,R:-1.0},toeAdj:{F:-0.10,R:+0.25},freqAdj:{F:-0.1,R:-0.6},aeroMult:0.35},
+            // DRAG: Inicial el más alto de todos (línea recta pura, cero necesidad de diferencial abierto),
+            // Acel. al máximo posible, Frenada moderada — no hay fase de frenada real en un lanzamiento.
+            // Carga aero mínima (0.10): en línea recta la carga aero es solo drag que resta velocidad
+            // punta y aceleración final, sin ningún beneficio de agarre en curva porque no hay curvas.
+            DRAG:{desc:'Aceleración pura, máxima tracción',heightAdj:{F:-8,R:-10},arbAdj:{F:-1,R:-1},camberAdj:{F:-2.5,R:-2.5},toeAdj:{F:0.05,R:0.05},freqAdj:{F:+0.5,R:-0.4},aeroMult:0.10}
+        };
+        // FIX: estos son el PUNTO OBJETIVO (0-1) de cada perfil dentro del rango real de LSD de la
+        // categoría — no un delta que se suma sobre una base ya alta. Se combinan con el factor de
+        // potencia/pista mediante PROMEDIO PONDERADO (no suma), así el resultado nunca satura por
+        // acumulación salvo en combinaciones genuinamente extremas (LMP1 + DRAG + slider al máximo),
+        // que es exactamente cuándo SÍ debería saturar.
+        const MODE_LSD_PCT = {
+            FLUID:  { init:0.20, acc:0.28, brk:0.30 },
+            MIX:    { init:0.32, acc:0.42, brk:0.28 },
+            MASTER: { init:0.42, acc:0.55, brk:0.20 },
+            DRIFT:  { init:0.80, acc:0.85, brk:0.55 },
+            DRAG:   { init:0.90, acc:0.95, brk:0.40 }
         };
         const TIRE_EFFECTS = {
-            RS:{grip:1.15,heightAdj:-3,freqAdj:+0.3,camberAdj:+0.3,toeAdj:-0.02,arbAdj:+1,lsdAccAdj:5,aeroAdj:1.05,desc:'Máximo grip, mayor rigidez, más camber permitido'},
+            RS:{grip:1.15,heightAdj:-3,freqAdj:+0.3,camberAdj:+0.3,toeAdj:-0.02,arbAdj:+1,lsdAccAdj:+0.05,aeroAdj:1.05,desc:'Máximo grip, mayor rigidez, más camber permitido'},
             RM:{grip:1.00,heightAdj:0,freqAdj:0,camberAdj:0,toeAdj:0,arbAdj:0,lsdAccAdj:0,aeroAdj:1.00,desc:'Equilibrio entre grip y duración'},
-            RH:{grip:0.85,heightAdj:+3,freqAdj:-0.2,camberAdj:-0.3,toeAdj:+0.03,arbAdj:-1,lsdAccAdj:-5,aeroAdj:1.10,desc:'Menos grip, más movimiento, más carga aero'},
-            IM:{grip:0.70,heightAdj:+8,freqAdj:-0.5,camberAdj:-0.5,toeAdj:+0.05,arbAdj:-2,lsdAccAdj:-10,aeroAdj:1.15,desc:'Lluvia intermedia, altura elevada, suspensión blanda'},
-            W:{grip:0.50,heightAdj:+12,freqAdj:-0.8,camberAdj:-0.8,toeAdj:+0.08,arbAdj:-3,lsdAccAdj:-15,aeroAdj:1.20,desc:'Lluvia extrema, máxima altura, mínimo LSD'}
+            RH:{grip:0.85,heightAdj:+3,freqAdj:-0.2,camberAdj:-0.3,toeAdj:+0.03,arbAdj:-1,lsdAccAdj:-0.08,aeroAdj:1.10,desc:'Menos grip, más movimiento, más carga aero'},
+            IM:{grip:0.70,heightAdj:+8,freqAdj:-0.5,camberAdj:-0.5,toeAdj:+0.05,arbAdj:-2,lsdAccAdj:-0.15,aeroAdj:1.15,desc:'Lluvia intermedia, altura elevada, suspensión blanda'},
+            W:{grip:0.50,heightAdj:+12,freqAdj:-0.8,camberAdj:-0.8,toeAdj:+0.08,arbAdj:-3,lsdAccAdj:-0.22,aeroAdj:1.20,desc:'Lluvia extrema, máxima altura, mínimo LSD'},
+            // Superficies sueltas: menos grip pico, mucho recorrido, LSD de aceleración abierto (no clavar
+            // la rueda motriz), LSD de freno más cerrado (ayuda a rotar con el pedal, típico en tierra/nieve)
+            DT:{grip:0.62,heightAdj:+16,freqAdj:-0.7,camberAdj:-0.7,toeAdj:+0.06,arbAdj:-3,lsdAccAdj:-0.12,lsdBrkAdj:+0.15,aeroAdj:0.90,desc:'Tierra/gravilla: mucho recorrido de suspensión, LSD de aceleración abierto, LSD de freno cerrado para rotar con el pedal'},
+            SN:{grip:0.38,heightAdj:+18,freqAdj:-1.0,camberAdj:-1.0,toeAdj:+0.10,arbAdj:-4,lsdAccAdj:-0.25,lsdBrkAdj:+0.18,aeroAdj:0.85,desc:'Nieve/hielo: grip mínimo, altura y blandura máximas, LSD muy abierto en aceleración para evitar el patinaje'}
         };
- 
+
         /*════════════════════════════════════════════
           BASE DE DATOS DE COCHES (con 992 '22)
           ════════════════════════════════════════════*/
@@ -285,9 +372,11 @@
                 { id:"nissan_r92cp",name:"Nissan R92CP '92",dt:"MR",hp:740,kg:850,dist:47,wb:2.79,cg:0.31,tf:1.62,tr:1.60,dvmax:360,af:1100,ar:1200,gears:5,tdiam:0.66,redline:9000,range:"GROUP_C",meta:true },
                 { id:"porsche_962c",name:"Porsche 962 C '88",dt:"MR",hp:680,kg:870,dist:45,wb:2.77,cg:0.32,tf:1.58,tr:1.56,dvmax:350,af:1050,ar:1150,gears:5,tdiam:0.66,redline:8000,range:"GROUP_C",meta:true },
                 { id:"jaguar_xjr9",name:"Jaguar XJR-9 '88",dt:"MR",hp:750,kg:880,dist:46,wb:2.82,cg:0.32,tf:1.60,tr:1.58,dvmax:370,af:1150,ar:1250,gears:5,tdiam:0.66,redline:8500,range:"GROUP_C",meta:true },
-                { id:"mercedes_clk_lm",name:"Mercedes-Benz CLK-LM '98",dt:"MR",hp:600,kg:1000,dist:48,wb:2.65,cg:0.34,tf:1.58,tr:1.56,dvmax:330,af:1000,ar:1100,gears:6,tdiam:0.67,redline:8000,range:"GT1",meta:true },
-                { id:"mclaren_f1_gtr",name:"McLaren F1 GTR '97",dt:"MR",hp:600,kg:1050,dist:46,wb:2.72,cg:0.35,tf:1.60,tr:1.58,dvmax:340,af:1050,ar:1150,gears:6,tdiam:0.67,redline:8000,range:"GT1",meta:false },
-                { id:"nissan_r390_gt1",name:"Nissan R390 GT1 '98",dt:"MR",hp:650,kg:1000,dist:46,wb:2.72,cg:0.34,tf:1.60,tr:1.58,dvmax:330,af:1000,ar:1100,gears:6,tdiam:0.67,redline:8000,range:"GT1",meta:true },
+                // FIX: Mercedes-Benz CLK-LM, McLaren F1 GTR y Nissan R390 GT1 estaban acá adentro. Los dos
+                // primeros son autos GT1 longtail de los 90 que en GT7 real pertenecen a Gr.2 (confirmado:
+                // la wiki de GT7 los lista textualmente como parte del trío "GT1 de los 90" de Gr.2, junto al
+                // Toyota GT-One) — se movieron abajo. El Nissan R390 GT1 '98 se ELIMINÓ directamente: apareció
+                // en GT2-GT6 pero no volvió en GT7 (confirmado, no está en el juego 1.70).
                 { id:"toyota_88cv",name:"Toyota 88C-V (MINOLTA) '89",dt:"MR",hp:900,kg:850,dist:48,wb:2.79,cg:0.31,tf:1.62,tr:1.60,dvmax:370,af:1100,ar:1200,gears:5,tdiam:0.66,redline:9000,range:"GROUP_C",meta:true },
                 { id:"mazda_767b",name:"Mazda 767B '89",dt:"MR",hp:630,kg:830,dist:48,wb:2.62,cg:0.31,tf:1.56,tr:1.54,dvmax:340,af:1050,ar:1150,gears:5,tdiam:0.66,redline:8500,range:"GROUP_C",meta:false },
                 { id:"porsche_919_hybrid",name:"Porsche 919 Hybrid '16",dt:"MR",hp:900,kg:875,dist:46,wb:2.95,cg:0.31,tf:1.68,tr:1.66,dvmax:340,af:1400,ar:1500,gears:7,tdiam:0.68,redline:9000,range:"LMP1",meta:true },
@@ -304,11 +393,21 @@
                 { id:"nissan_gtr_gt500_08",name:"Nissan GT-R GT500 '08",dt:"FR",hp:500,kg:1100,dist:52,wb:2.78,cg:0.40,tf:1.65,tr:1.63,dvmax:300,af:700,ar:900,gears:6,tdiam:0.66,redline:8000,range:"GT500",meta:false },
                 { id:"honda_nsx_gt500_08",name:"Honda NSX GT500 '08",dt:"MR",hp:500,kg:1100,dist:47,wb:2.70,cg:0.38,tf:1.62,tr:1.60,dvmax:300,af:750,ar:950,gears:6,tdiam:0.66,redline:8000,range:"GT500",meta:false },
                 { id:"lexus_sc430_gt500_08",name:"Lexus SC430 GT500 '08",dt:"FR",hp:500,kg:1100,dist:53,wb:2.85,cg:0.41,tf:1.66,tr:1.64,dvmax:300,af:700,ar:900,gears:6,tdiam:0.66,redline:8000,range:"GT500",meta:false },
-                { id:"honda_nsx_gt500_00",name:"Honda NSX GT500 '00",dt:"MR",hp:480,kg:1100,dist:47,wb:2.70,cg:0.38,tf:1.62,tr:1.60,dvmax:290,af:700,ar:900,gears:6,tdiam:0.66,redline:8000,range:"GT500",meta:false },
-                { id:"nissan_gtr_gt500_99",name:"Nissan GT-R GT500 '99",dt:"FR",hp:500,kg:1100,dist:52,wb:2.75,cg:0.40,tf:1.65,tr:1.63,dvmax:290,af:700,ar:900,gears:6,tdiam:0.66,redline:8000,range:"GT500",meta:false },
-                { id:"toyota_supra_gt500_97",name:"Toyota Supra GT500 '97",dt:"FR",hp:480,kg:1100,dist:53,wb:2.55,cg:0.41,tf:1.63,tr:1.61,dvmax:290,af:700,ar:900,gears:6,tdiam:0.66,redline:8000,range:"GT500",meta:false }
+                // Movidos desde Gr.1 — pertenecen acá según la propia categorización de GT7 (verificado):
+                { id:"mercedes_clk_lm",name:"Mercedes-Benz CLK-LM '98",dt:"MR",hp:600,kg:1000,dist:48,wb:2.65,cg:0.34,tf:1.58,tr:1.56,dvmax:330,af:1000,ar:1100,gears:6,tdiam:0.67,redline:8000,range:"GT1",meta:true },
+                { id:"mclaren_f1_gtr",name:"BMW McLaren F1 GTR Race Car '97",dt:"MR",hp:600,kg:1050,dist:46,wb:2.72,cg:0.35,tf:1.60,tr:1.58,dvmax:340,af:1050,ar:1150,gears:6,tdiam:0.67,redline:8000,range:"GT1",meta:false },
+                // NUEVO — faltaba por completo (verificado GT7 1.70: MR, 764 BHP, Legend Cars):
+                { id:"toyota_gt_one",name:"Toyota GT-One (TS020) '99",dt:"MR",hp:764,kg:920,dist:45,wb:2.85,cg:0.31,tf:1.60,tr:1.64,dvmax:365,af:1150,ar:1250,gears:6,tdiam:0.67,redline:7500,range:"GT1",meta:true },
+                // NUEVO — es el que faltaba señalado: FR, 603 BHP, 986 kg (verificado GT7 1.70, agregado Update 1.31):
+                { id:"audi_rs5_dtm",name:"Audi RS 5 Turbo DTM '19",dt:"FR",hp:603,kg:986,dist:50,wb:2.75,cg:0.36,tf:1.66,tr:1.64,dvmax:305,af:900,ar:1050,gears:6,tdiam:0.66,redline:8500,range:"GT500",meta:true }
             ],
             "Gr.3": [
+                // Movidos desde Gr.2: en GT7 real, el GT500 anterior a 2003 se clasifica como Gr.3, no Gr.2
+                // (regla textual de la propia categorización del juego). Se conserva range:"GT500" porque
+                // el chasis sigue siendo el de un GT500 de época, aunque la UI los agrupe en Gr.3.
+                { id:"honda_nsx_gt500_00",name:"Honda NSX GT500 '00",dt:"MR",hp:480,kg:1100,dist:47,wb:2.70,cg:0.38,tf:1.62,tr:1.60,dvmax:290,af:700,ar:900,gears:6,tdiam:0.66,redline:8000,range:"GT500",meta:false },
+                { id:"nissan_gtr_gt500_99",name:"Nissan GT-R GT500 '99",dt:"FR",hp:500,kg:1100,dist:52,wb:2.75,cg:0.40,tf:1.65,tr:1.63,dvmax:290,af:700,ar:900,gears:6,tdiam:0.66,redline:8000,range:"GT500",meta:false },
+                { id:"toyota_supra_gt500_97",name:"Toyota Supra GT500 '97",dt:"FR",hp:480,kg:1100,dist:53,wb:2.55,cg:0.41,tf:1.63,tr:1.61,dvmax:290,af:700,ar:900,gears:6,tdiam:0.66,redline:8000,range:"GT500",meta:false },
                 { id:"porsche_911_rsr",name:"Porsche 911 RSR (991) '17",dt:"MR",hp:510,kg:1243,dist:42,wb:2.51,cg:0.36,tf:1.58,tr:1.57,dvmax:270,af:450,ar:850,gears:6,tdiam:0.64,redline:8000,range:"GT3",meta:true },
                 { id:"porsche_911_rsr_992",name:"Porsche 911 RSR (992) '22",dt:"MR",hp:525,kg:1250,dist:42,wb:2.51,cg:0.35,tf:1.58,tr:1.57,dvmax:275,af:460,ar:850,gears:6,tdiam:0.64,redline:8500,range:"GT3",meta:true },
                 { id:"ferrari_296_gt3",name:"Ferrari 296 GT3 '23",dt:"MR",hp:520,kg:1250,dist:45,wb:2.60,cg:0.37,tf:1.60,tr:1.59,dvmax:285,af:460,ar:830,gears:6,tdiam:0.64,redline:8000,range:"GT3",meta:true },
@@ -392,10 +491,17 @@
                 { id:"honda_nsx_92",name:"Honda NSX Type R '92",dt:"MR",hp:280,kg:1230,dist:42,wb:2.53,cg:0.37,tf:1.50,tr:1.48,dvmax:275,af:0,ar:0,gears:5,tdiam:0.62,redline:8000,range:"ROAD",meta:true },
                 { id:"bmw_m3_e46",name:"BMW M3 '03",dt:"FR",hp:343,kg:1490,dist:52,wb:2.73,cg:0.42,tf:1.55,tr:1.53,dvmax:280,af:0,ar:0,gears:6,tdiam:0.64,redline:8000,range:"ROAD",meta:true },
                 { id:"chevrolet_corvette_c8",name:"Chevrolet Corvette C8 '20",dt:"MR",hp:495,kg:1530,dist:40,wb:2.72,cg:0.36,tf:1.62,tr:1.60,dvmax:312,af:0,ar:0,gears:8,tdiam:0.65,redline:8500,range:"ROAD",meta:true },
-                { id:"porsche_911_turbo_s_safety",name:"Porsche 911 Turbo S Safety Car (992)",dt:"4WD",hp:650,kg:1640,dist:39,wb:2.45,cg:0.36,tf:1.59,tr:1.57,dvmax:330,af:0,ar:0,gears:8,tdiam:0.66,redline:7500,range:"ROAD",meta:true }
+                { id:"porsche_911_turbo_s_safety",name:"Porsche 911 Turbo S Safety Car (992)",dt:"4WD",hp:650,kg:1640,dist:39,wb:2.45,cg:0.36,tf:1.59,tr:1.57,dvmax:330,af:0,ar:0,gears:8,tdiam:0.66,redline:7500,range:"ROAD",meta:true },
+                // NUEVO — pedido explícito, verificado en GT7 1.70. 4WD, off-road, referencia de PP-lastre
+                // (peso alto + tracción) útil para contenido técnico de suspensión de largo recorrido:
+                { id:"ford_f150_raptor_17",name:"Ford F-150 Raptor '17",dt:"4WD",hp:450,kg:2500,dist:56,wb:3.68,cg:0.55,tf:1.83,tr:1.83,dvmax:180,af:0,ar:0,gears:8,tdiam:0.83,redline:6300,range:"ROAD",meta:true },
+                // NUEVO — "joya infravalorada" pedida: kei roadster FR, livianísimo (725kg real, verificado),
+                // relación peso/potencia excelente para su clase pese a ser fácil de pasar por alto frente a
+                // los nombres grandes. Buen candidato para contenido técnico de PP bajo.
+                { id:"suzuki_cappuccino_91",name:"Suzuki Cappuccino (EA11R) '91",dt:"FR",hp:62,kg:725,dist:51,wb:2.06,cg:0.30,tf:1.34,tr:1.32,dvmax:170,af:0,ar:0,gears:5,tdiam:0.55,redline:6500,range:"ROAD",meta:false }
             ]
         };
- 
+
         /*════════════════════════════════════════════
           BASE DE DATOS DE CIRCUITOS
           ════════════════════════════════════════════*/
@@ -448,9 +554,22 @@
             { id:"willow_springs_streets",name:"Willow Springs Streets of Willow",preset:"TECH",overrides:{bumps:+0.1},vmax:220,sectors:{slow:10,medium:14,fast:10} },
             { id:"yamanashi",name:"Yamanashi",preset:"TECH",overrides:{},vmax:250,sectors:{slow:6,medium:12,fast:10} },
             { id:"zolder",name:"Circuit Zolder",preset:"MIXED",overrides:{},vmax:270,sectors:{slow:5,medium:8,fast:8} },
-            { id:"indianapolis_road",name:"Indianapolis Motor Speedway Road Course",preset:"FAST",overrides:{rotation:+0.10},vmax:320,sectors:{slow:4,medium:6,fast:8} }
+            { id:"indianapolis_road",name:"Indianapolis Motor Speedway Road Course",preset:"FAST",overrides:{rotation:+0.10},vmax:320,sectors:{slow:4,medium:6,fast:8} },
+            // ── Suma de circuitos/variantes de GT7 ausentes de la tabla original ──
+            // MISMA metodología heurística que el resto (preset + overrides + vmax + sectores), no son
+            // datos de telemetría real capturados del juego — coherente con cómo ya está armada toda esta
+            // tabla, no un nivel de precisión distinto.
+            { id:"grand_valley",name:"Grand Valley - Highway 1",preset:"MIXED",overrides:{rotation:+0.05},vmax:300,sectors:{slow:3,medium:7,fast:9} },
+            { id:"road_atlanta",name:"Michelin Raceway Road Atlanta",preset:"TECH",overrides:{},vmax:270,sectors:{slow:5,medium:9,fast:9} },
+            { id:"nurburgring_nordschleife",name:"Nürburgring Nordschleife",preset:"TECH",overrides:{bumps:+0.3,rotation:+0.10},vmax:290,sectors:{slow:16,medium:38,fast:20} },
+            { id:"willow_springs_horse_thief",name:"Willow Springs Horse Thief Mile",preset:"TECH",overrides:{bumps:+0.1},vmax:210,sectors:{slow:6,medium:8,fast:4} },
+            { id:"alsace_village_reverse",name:"Alsace Village Reverse",preset:"TECH",overrides:{},vmax:230,sectors:{slow:7,medium:12,fast:10} },
+            { id:"sardegna_road_a",name:"Sardegna - Road Track A",preset:"MIXED",overrides:{},vmax:280,sectors:{slow:5,medium:8,fast:9} },
+            { id:"tokyo_expressway_south_cw",name:"Tokyo Expressway - South Clockwise",preset:"CITY",overrides:{},vmax:270,sectors:{slow:6,medium:12,fast:8} },
+            { id:"tokyo_expressway_central_cw",name:"Tokyo Expressway - Central Clockwise",preset:"CITY",overrides:{rotation:+0.04},vmax:260,sectors:{slow:9,medium:11,fast:5} },
+            { id:"broad_bean_raceway_reverse",name:"Broad Bean Raceway Reverse",preset:"FAST",overrides:{rotation:-0.12},vmax:290,sectors:{slow:2,medium:3,fast:5} }
         ];
- 
+
         /*════════════════════════════════════════════
           MOTOR DE FÍSICA
           ════════════════════════════════════════════*/
@@ -475,13 +594,15 @@
                 bumps:preset.bumps + (t.overrides.bumps||0),
                 vmax:t.vmax,
                 sectors:t.sectors,
-                df:0.3 + (aeroFinal*0.7) // ahora usa el aero YA corregido por el circuito, no el base del preset
+                // FIX: antes el piso era 0.3 (mínimo 30% de carga aero incluso en Route X, una recta
+                // pura de 450km/h sin una sola curva). Ahora escala casi lineal desde un piso real de 5%.
+                df:0.05 + (aeroFinal*0.90)
             };
         }
- 
+
         let lastSetup = {};
         let lastCarId = null, lastTrackId = null;
- 
+
         function generateSetup(car, track, mode, trac, rot, stab) {
             const r = RANGE[car.range];
             if (!r) return {};
@@ -517,38 +638,79 @@
             s.toeF = clamp(toeBaseF + me.toeAdj.F + tire.toeAdj, r.toeF, 0.01);
             s.toeR = clamp(toeBaseR + me.toeAdj.R + tire.toeAdj, r.toeR, 0.01);
             const ptw = car.hp / car.kg;
-            const lsdAccBase = Math.round(25 + ptw*40 + track.sectors.slow*0.8);
-            const lsdBrkBase = car.dt==='MR'?Math.round(15+track.sectors.slow*0.3):8;
-            const lsdInitBase = car.dt==='4WD' ? 16 : (car.dt==='MR' ? 11 : 9);
-            s.lsdInitR = clamp(lsdInitBase, r.lsdI);
-            s.lsdAccR = clamp(lsdAccBase + me.lsdAccAdj + tire.lsdAccAdj + trac*15, r.lsdA);
-            s.lsdBrkR = clamp(lsdBrkBase + me.lsdBrkAdj - rot*5, r.lsdB);
-            s.lsdInitF = car.dt==='4WD'?10:0;
-            s.lsdAccF = car.dt==='4WD'?20:0;
-            s.lsdBrkF = car.dt==='4WD'?10:0;
-            s.downF = clamp(Math.round(car.af * track.df * tire.aeroAdj), [0,car.af]);
-            s.downR = clamp(Math.round(car.ar * track.df * tire.aeroAdj), [0,car.ar]);
+            // ── LSD: promedio ponderado 0-1 → rango real de la categoría ──
+            // Cada eje se arma como un PROMEDIO PONDERADO entre el objetivo del perfil (MODE_LSD_PCT),
+            // la potencia/peso del propio coche y, según el eje, la pista o los sliders. Al ser promedio
+            // (los pesos suman 1) el resultado nunca puede superar el rango salvo que TODOS los términos
+            // estén ya al máximo a la vez — eso es justo lo que diferencia a un LMP1 en DRAG (satura, y
+            // está bien que sature) de un GT3 en DRAG (queda alto pero no clavado en el techo).
+            const clamp01 = v => Math.min(1, Math.max(0, v));
+            const factorToRange = (f, range) => clamp(range[0] + (range[1]-range[0])*f, range, 1);
+            const mlsd = MODE_LSD_PCT[mode] || MODE_LSD_PCT.MIX;
+
+            const powerFactor = clamp01(0.15 + ptw*0.55); // 0 ≈ auto de calle liviano · 1 ≈ Hypercar/LMP1
+            const dtBonus = car.dt==='4WD' ? 1.0 : (car.dt==='MR' ? 0.4 : 0.15); // carácter propio del tren motriz
+
+            const initFactor = clamp01(mlsd.init*0.65 + powerFactor*0.20 + dtBonus*0.15);
+            const accFactor  = clamp01(mlsd.acc*0.55 + powerFactor*0.30 + trac*0.15 + (tire.lsdAccAdj||0));
+            const brkFactor  = clamp01(mlsd.brk*0.60 + powerFactor*0.10 + slowRatio*0.15 - rot*0.15 + (tire.lsdBrkAdj||0));
+
+            // Valores base del eje motriz principal (trasero en MR/FR/4WD, delantero en FF)
+            const driveInit = factorToRange(initFactor, r.lsdI);
+            const driveAcc  = factorToRange(accFactor, r.lsdA);
+            const driveBrk  = factorToRange(brkFactor, r.lsdB);
+
+            if (car.dt === 'FF') {
+                // FIX: en un FF el diferencial que existe es el DELANTERO. Antes esto se calculaba
+                // igual pero se guardaba en lsdInitR/AccR/BrkR (inexistentes en un FF) y el delantero
+                // quedaba en 0 — el usuario terminaba viendo "0/0/0" en el único LSD que su coche tiene.
+                s.lsdInitF = driveInit; s.lsdAccF = driveAcc; s.lsdBrkF = driveBrk;
+                s.lsdInitR = 0; s.lsdAccR = 0; s.lsdBrkR = 0;
+            } else if (car.dt === '4WD') {
+                // FIX: antes el eje delantero de un 4WD era fijo (10/20/10) sin importar modo, pista,
+                // neumático ni slider — un DRIFT y un MASTER daban exactamente el mismo LSD delantero.
+                // Ahora escala junto al trasero, con reparto de torque típico (delantero ~65-70% del
+                // trasero: más abierto para no generar subviraje en curva lenta).
+                s.lsdInitR = driveInit; s.lsdAccR = driveAcc; s.lsdBrkR = driveBrk;
+                s.lsdInitF = clamp(Math.round(driveInit*0.7), r.lsdI);
+                s.lsdAccF  = clamp(Math.round(driveAcc*0.6), r.lsdA);
+                s.lsdBrkF  = clamp(Math.round(driveBrk*0.6), r.lsdB);
+            } else {
+                // MR / FR: motriz trasero, sin diferencial delantero
+                s.lsdInitR = driveInit; s.lsdAccR = driveAcc; s.lsdBrkR = driveBrk;
+                s.lsdInitF = 0; s.lsdAccF = 0; s.lsdBrkF = 0;
+            }
+            s.downF = clamp(Math.round(car.af * track.df * tire.aeroAdj * (me.aeroMult ?? 1)), [0,car.af]);
+            s.downR = clamp(Math.round(car.ar * track.df * tire.aeroAdj * (me.aeroMult ?? 1)), [0,car.ar]);
             return s;
         }
- 
+
         function clamp(value, range, step=1) {
             const raw = Math.round(value/step)*step;
-            const v = parseFloat(raw.toFixed(4)); // evita basura de punto flotante (0.1*7=0.7000000000000001)
+            const v = parseFloat(raw.toFixed(4));
             return Math.min(range[1], Math.max(range[0], v));
         }
- 
+
+        // Devuelve los valores de LSD del eje que realmente transmite potencia (trasero en MR/FR/4WD, delantero en FF)
+        function drivenLSD(s, car) {
+            return car.dt === 'FF'
+                ? { init: s.lsdInitF, acc: s.lsdAccF, brk: s.lsdBrkF }
+                : { init: s.lsdInitR, acc: s.lsdAccR, brk: s.lsdBrkR };
+        }
+
         function scoreSetup(s, car, track) {
             const cl = (v,a,b) => Math.min(b, Math.max(a,v));
+            const lsd = drivenLSD(s, car);
             const tIn = cl(50 + s.toeF*-50 + s.camberF*6, 0,100);
             const mid = cl(50 + (s.freqR-s.freqF)*12 + s.downR/10, 0,100);
-            const ex  = cl(50 + s.lsdAccR*0.6 + s.toeR*40, 0,100);
+            const ex  = cl(50 + lsd.acc*0.6 + s.toeR*40, 0,100);
             const st  = cl(50 + s.toeF*40 + s.arbF*4, 0,100);
-            const brk = cl(50 + s.lsdBrkR*0.8 + s.freqF*5, 0,100);
+            const brk = cl(50 + lsd.brk*0.8 + s.freqF*5, 0,100);
             const w = { tIn:track.rotation, mid:track.aero, ex:track.traction, st:track.stability, brk:track.stability };
             const total = w.tIn + w.mid + w.ex + w.st + w.brk;
             return Math.round((tIn*w.tIn + mid*w.mid + ex*w.ex + st*w.st + brk*w.brk)/total);
         }
- 
+
         /*════════════════════════════════════════════
           UI
           ════════════════════════════════════════════*/
@@ -570,25 +732,35 @@
             lsdAccF:'LSD Acel. Del.',lsdAccR:'LSD Acel. Tras.',lsdBrkF:'LSD Fren. Del.',lsdBrkR:'LSD Fren. Tras.',
             downF:'Carga Aer. Del.',downR:'Carga Aer. Tras.'
         };
- 
+
         function buildUI() {
             ui.susp.innerHTML = SUSP.map(k => `<div class="setup-row"><label>${NAMES[k]}</label><input id="in_${k}" value="0"></div>`).join('');
             ui.lsd.innerHTML = LSD_AERO.map(k => `<div class="setup-row"><label>${NAMES[k]}</label><input id="in_${k}" value="0"></div>`).join('');
-            ui.gears.innerHTML = Array.from({length:6}, (_,i) => `<input id="gear${i+1}" value="0.000">`).join('');
+            buildGearGrid(6);
         }
- 
+
+        let lastGearCount = 0;
+        function buildGearGrid(n) {
+            n = Math.min(Math.max(n,4),8);
+            ui.gears.style.gridTemplateColumns = `repeat(${n},1fr)`;
+            ui.gears.innerHTML = Array.from({length:n}, (_,i) => `<input id="gear${i+1}" value="0.000" readonly>`).join('');
+            lastGearCount = n;
+        }
+
         function populate() {
             ui.cat.innerHTML = Object.keys(CARS).map(c => `<option>${c}</option>`).join('');
             ui.track.innerHTML = TRACKS.map(t => `<option>${t.name}</option>`).join('');
+        }
+        function populateDefaults() {
             ui.cat.value = 'Gr.3'; updateCars(); ui.track.value = 'Suzuka Circuit';
         }
- 
+
         function updateCars() {
             const cars = CARS[ui.cat.value];
             ui.auto.innerHTML = cars ? cars.map(c => `<option>${c.meta?'★ ':''}${c.name}</option>`).join('') : '';
             calc();
         }
- 
+
         function calc() {
             const car = getCar(), track = getTrack();
             if (!car || !track) return;
@@ -597,7 +769,7 @@
             const rot = parseFloat($('slider-rotation').value)/100;
             const stab = parseFloat($('slider-stability').value)/100;
             const s = generateSetup(car, track, mode, trac, rot, stab);
- 
+
             for (let k in s) {
                 const el = $('in_'+k);
                 if (!el) continue;
@@ -606,14 +778,11 @@
                 el.value = s[k];
                 if (oldVal !== null && oldVal !== newVal) {
                     el.classList.add('pulse-neon');
-                    setTimeout(() => el.classList.remove('pulse-neon'), 600);
+                    setTimeout(() => el.classList.remove('pulse-neon'), 200);
                 }
             }
             lastSetup = {...s};
- 
-            // FIX: antes esto pisaba vmax/transFinal en CADA recálculo (mover slider, cambiar modo, etc.),
-            // así que una edición manual del usuario se perdía al instante. Ahora solo se autocompletan
-            // cuando realmente cambia el coche o el circuito; el resto de veces se respeta lo que haya en el input.
+
             const carChanged = lastCarId !== car.id;
             const trackChanged = lastTrackId !== track.name;
             if (carChanged || trackChanged) {
@@ -624,44 +793,101 @@
                 ui.transFinal.value = fdDefault.toFixed(3);
             }
             lastCarId = car.id; lastTrackId = track.name;
- 
+
             const vmax = parseFloat(ui.vmax.value) || Math.min(car.dvmax, track.vmax+10);
             const fd = parseFloat(ui.transFinal.value) || (RANGE[car.range].fd[0]+RANGE[car.range].fd[1])/2;
-            for (let i=0;i<6;i++) {
-                const ratio = (car.gears*vmax)/((i+1)*(car.redline/1000)*car.tdiam*60*0.001)*0.8;
+            const gearCount = Math.min(Math.max(car.gears,4),8);
+            if (gearCount !== lastGearCount) buildGearGrid(gearCount);
+            const wheelCirc = Math.PI * car.tdiam;
+            const totalRatioTop = (car.redline/1000) * wheelCirc * 60 / vmax;
+            const topGearRatio = Math.max(0.5, totalRatioTop / fd);
+            const spread = 1.28;
+            for (let i=0;i<gearCount;i++) {
+                const ratio = topGearRatio * Math.pow(spread, gearCount-1-i);
                 $('gear'+(i+1)).value = ratio.toFixed(3);
             }
             updateDerivedUI(s, car, track, mode, fd);
+            autosave();
         }
- 
-        // Extraído de calc(): recalcula score/radar/balance/sheet a partir de un setup dado.
-        // Se reusa también cuando el usuario edita a mano los inputs de suspensión/LSD/aero.
+
         function updateDerivedUI(s, car, track, mode, fd) {
             const score = scoreSetup(s, car, track);
-            ui.score.innerText = score;
+            animateScore(score);
             ui.score.className = 'score-badge '+(score>85?'score-high':score>70?'score-mid':'score-low');
+            const lsd = drivenLSD(s, car);
             const pts = [
                 [50+s.toeF*-50+s.camberF*6,'TURN'],[50+(s.freqR-s.freqF)*12+s.downR/10,'MID'],
-                [50+s.lsdAccR*0.6+s.toeR*40,'EXIT'],[50+s.toeF*40+s.arbF*4,'STAB'],
-                [50+s.lsdBrkR*0.8+s.freqF*5,'BRAKE']
+                [50+lsd.acc*0.6+s.toeR*40,'EXIT'],[50+s.toeF*40+s.arbF*4,'STAB'],
+                [50+lsd.brk*0.8+s.freqF*5,'BRAKE']
             ];
-            const cx=50,cy=50,rad=40;
-            document.getElementById('radar-polygon').setAttribute('points', pts.map((p,i) => {
-                const a = Math.PI*2*i/5 - Math.PI/2;
-                const clamped = Math.min(100, Math.max(0, p[0]));
-                return `${(cx+Math.cos(a)*rad*clamped/100).toFixed(1)},${(cy+Math.sin(a)*rad*clamped/100).toFixed(1)}`;
-            }).join(' '));
+            animateRadar(pts);
             const bias = Math.round(50 + s.toeR*50 + (s.arbR-s.arbF)*3);
             document.getElementById('balance-fill').style.width = Math.min(100,Math.max(0,bias))+'%';
             document.getElementById('balance-label').innerText = 'Bias · '+bias+'%';
-            const txt = `V16PRO · Engineering Lab · viC_Diqz\n${car.name} | ${track.name} | ${mode} | Score ${score}\nH ${s.heightF}/${s.heightR} ARB ${s.arbF}/${s.arbR}\nCMP ${s.dampCF}/${s.dampCR} EXT ${s.dampEF}/${s.dampER}\nFRQ ${s.freqF}/${s.freqR} CMB ${s.camberF}/${s.camberR}\nTOE ${s.toeF}/${s.toeR} LSD ${s.lsdInitR}/${s.lsdAccR}/${s.lsdBrkR}\nAERO ${s.downF}/${s.downR} FD ${fd.toFixed(3)}`;
+            const lsdLabel = car.dt==='FF' ? 'LSD(F)' : car.dt==='4WD' ? 'LSD(R/F)' : 'LSD(R)';
+            const lsdVals = car.dt==='4WD' ? `${s.lsdInitR}/${s.lsdAccR}/${s.lsdBrkR} · ${s.lsdInitF}/${s.lsdAccF}/${s.lsdBrkF}` : `${lsd.init}/${lsd.acc}/${lsd.brk}`;
+            const txt = `V16PRO · Engineering Lab · viC_Diqz\n${car.name} | ${track.name} | ${mode} | Score ${score}\nH ${s.heightF}/${s.heightR} ARB ${s.arbF}/${s.arbR}\nCMP ${s.dampCF}/${s.dampCR} EXT ${s.dampEF}/${s.dampER}\nFRQ ${s.freqF}/${s.freqR} CMB ${s.camberF}/${s.camberR}\nTOE ${s.toeF}/${s.toeR} ${lsdLabel} ${lsdVals}\nAERO ${s.downF}/${s.downR} FD ${fd.toFixed(3)}`;
             ui.exportTxt.value = txt; ui.sheet.innerHTML = txt.replace(/\n/g,'<br>');
             const me = MODE_EFFECTS[mode];
             const tire = TIRE_EFFECTS[ui.neumaticos.value];
-            ui.knowBox.innerText = `🧪 ${me.desc}. Neumático: ${ui.neumaticos.value} (${tire.desc}). LSD Acc: ${s.lsdAccR} | LSD Brk: ${s.lsdBrkR} | Altura: ${s.heightF}/${s.heightR} | Camber: ${s.camberF}°/${s.camberR}°`;
+            ui.knowBox.innerText = `🧪 ${me.desc}. Neumático: ${ui.neumaticos.value} (${tire.desc}). LSD Acc: ${lsd.acc} | LSD Brk: ${lsd.brk} | Altura: ${s.heightF}/${s.heightR} | Camber: ${s.camberF}°/${s.camberR}°`;
         }
- 
-        // Lee el setup actual directamente de los inputs (para cuando el usuario edita a mano)
+
+        function animateScore(target) {
+            const el = ui.score;
+            if (!el) return;
+            const current = parseInt(el.innerText) || 0;
+            const diff = target - current;
+            if (diff === 0) return;
+            const steps = Math.abs(diff);
+            const duration = Math.min(200, steps * 20);
+            const interval = duration / steps;
+            let step = 0;
+            const sign = diff > 0 ? 1 : -1;
+            const timer = setInterval(() => {
+                step++;
+                const newVal = current + step * sign;
+                el.innerText = newVal;
+                if (step >= steps) {
+                    clearInterval(timer);
+                    el.innerText = target;
+                }
+            }, interval);
+        }
+
+        function animateRadar(pts) {
+            const poly = document.getElementById('radar-polygon');
+            if (!poly) return;
+            const oldPoints = poly.getAttribute('points')?.split(' ').map(p => p.split(',').map(Number)) || [];
+            const newPoints = pts.map(([val], i) => {
+                const clamped = Math.min(100, Math.max(0, val));
+                const a = Math.PI*2*i/5 - Math.PI/2;
+                const cx = 50, cy = 50, rad = 40;
+                return [cx + Math.cos(a) * rad * clamped / 100, cy + Math.sin(a) * rad * clamped / 100];
+            });
+            if (oldPoints.length !== newPoints.length) {
+                poly.setAttribute('points', newPoints.map(p => p.join(',')).join(' '));
+                return;
+            }
+            const duration = 200;
+            const start = performance.now();
+            const from = oldPoints.map(p => [p[0], p[1]]);
+            const to = newPoints;
+
+            function step(now) {
+                const progress = Math.min(1, (now - start) / duration);
+                const eased = 1 - Math.pow(1 - progress, 3); // ease-out
+                const current = from.map((p, i) => [
+                    p[0] + (to[i][0] - p[0]) * eased,
+                    p[1] + (to[i][1] - p[1]) * eased
+                ]);
+                poly.setAttribute('points', current.map(p => p[0].toFixed(2)+','+p[1].toFixed(2)).join(' '));
+                if (progress < 1) requestAnimationFrame(step);
+                else poly.setAttribute('points', to.map(p => p[0].toFixed(2)+','+p[1].toFixed(2)).join(' '));
+            }
+            requestAnimationFrame(step);
+        }
+
         function readCurrentSetup() {
             const s = {};
             [...SUSP, ...LSD_AERO].forEach(k => {
@@ -670,9 +896,35 @@
             });
             return s;
         }
- 
-        // FIX: antes, editar a mano un input de suspensión/LSD/aero no actualizaba score, radar,
-        // balance ni la ficha de exportación — quedaban desincronizados del setup real en pantalla.
+
+        function getFieldBounds(key, car, r) {
+            const map = {
+                heightF:r.hF, heightR:r.hR, arbF:r.arbF, arbR:r.arbR,
+                dampCF:r.dampCF, dampCR:r.dampCR, dampEF:r.dampEF, dampER:r.dampER,
+                freqF:r.freqF, freqR:r.freqR, camberF:r.camberF, camberR:r.camberR,
+                toeF:r.toeF, toeR:r.toeR,
+                lsdInitF:r.lsdI, lsdInitR:r.lsdI, lsdAccF:r.lsdA, lsdAccR:r.lsdA,
+                lsdBrkF:r.lsdB, lsdBrkR:r.lsdB,
+                downF:[0,car.af], downR:[0,car.ar]
+            };
+            return map[key] || null;
+        }
+
+        function onFieldBlur(e) {
+            const car = getCar();
+            if (!car) return;
+            const r = RANGE[car.range];
+            if (!r) return;
+            const key = e.target.id.replace('in_','');
+            const bounds = getFieldBounds(key, car, r);
+            if (!bounds) return;
+            let v = parseFloat(e.target.value);
+            if (isNaN(v)) v = bounds[0];
+            v = Math.min(bounds[1], Math.max(bounds[0], v));
+            e.target.value = v;
+            onManualEdit();
+        }
+
         function onManualEdit() {
             const car = getCar(), track = getTrack();
             if (!car || !track) return;
@@ -680,15 +932,27 @@
             const fd = parseFloat(ui.transFinal.value) || 0;
             updateDerivedUI(readCurrentSetup(), car, track, mode, fd);
         }
- 
+
         /*════════════════════════════════════════════
-          EXPORTACIÓN MEJORADA
+          EXPORTACIÓN CON OVERLAY
           ════════════════════════════════════════════*/
         async function downloadScreenshot() {
+            const exportOverlay = document.getElementById('export-overlay');
+            const progressBar = document.getElementById('export-progress-bar');
+            const status = document.getElementById('export-status');
+            exportOverlay.classList.add('active');
+            progressBar.style.width = '0%';
+            status.textContent = 'Iniciando...';
+            await sleep(100);
+            progressBar.style.width = '30%';
+            status.textContent = 'Renderizando...';
+            await sleep(200);
+            progressBar.style.width = '70%';
+            status.textContent = 'Capturando...';
             const el = document.getElementById('capture-area');
             const inputs = el.querySelectorAll('input');
             inputs.forEach(inp => { inp.setAttribute('value', inp.value); });
-            await new Promise(r => setTimeout(r, 50));
+            await sleep(100);
             try {
                 const canvas = await html2canvas(el, {
                     backgroundColor: '#020610',
@@ -697,59 +961,106 @@
                     allowTaint: true,
                     useCORS: true
                 });
+                progressBar.style.width = '100%';
+                status.textContent = 'Listo.';
+                await sleep(300);
                 const link = document.createElement('a');
                 link.download = `V16PRO_${getCar()?.name?.replace(/\s/g,'_')||'setup'}_${Date.now()}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-            } catch(e) { alert('Error al generar la imagen: '+e); }
+            } catch(e) {
+                status.textContent = 'Error.';
+            }
+            await sleep(500);
+            exportOverlay.classList.remove('active');
         }
- 
-        function saveConfig() {
-            const config = {
+        function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+        function currentConfigObj() {
+            return {
                 cat:ui.cat.value, auto:ui.auto.value, track:ui.track.value,
                 mode:document.querySelector('.chip.active')?.dataset.mode||'MIX',
                 tire:ui.neumaticos.value,
                 trac:$('slider-traction').value, rot:$('slider-rotation').value,
                 stab:$('slider-stability').value, vmax:ui.vmax.value, fd:ui.transFinal.value
             };
-            const json = JSON.stringify(config, null, 2);
+        }
+
+        function applyConfigObj(config) {
+            ui.cat.value = config.cat; updateCars();
+            setTimeout(() => {
+                ui.auto.value = config.auto; ui.track.value = config.track;
+                if (config.tire) ui.neumaticos.value = config.tire;
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                const chip = document.querySelector(`.chip[data-mode="${config.mode}"]`);
+                if (chip) chip.classList.add('active');
+                ui.modeLabel.innerText = config.mode;
+                document.getElementById('profile-desc').innerText = MODE_EFFECTS[config.mode]?.desc || '';
+                $('slider-traction').value = config.trac;
+                $('slider-rotation').value = config.rot;
+                $('slider-stability').value = config.stab;
+                $('slider-traction-val').innerText = config.trac+'%';
+                $('slider-rotation-val').innerText = (config.rot>0?'+':'')+(config.rot/100).toFixed(2);
+                $('slider-stability-val').innerText = (config.stab>0?'+':'')+(config.stab/100).toFixed(2);
+                ui.vmax.value = config.vmax; ui.transFinal.value = config.fd;
+                lastCarId = null; lastTrackId = null; // fuerza a respetar vmax/fd cargados en el próximo calc()
+                calc();
+            }, 50);
+        }
+
+        // ── Autoguardado local (archivo standalone, no artifact) ──
+        function autosave() {
+            try { localStorage.setItem('v16pro_last_config', JSON.stringify(currentConfigObj())); } catch(e) {}
+        }
+        function tryAutoload() {
+            try {
+                const raw = localStorage.getItem('v16pro_last_config');
+                if (!raw) return false;
+                applyConfigObj(JSON.parse(raw));
+                return true;
+            } catch(e) { return false; }
+        }
+
+        // Feedback breve reusando el overlay de exportación, sin alert()
+        async function flashOverlay(label, doneLabel) {
+            const exportOverlay = document.getElementById('export-overlay');
+            const progressBar = document.getElementById('export-progress-bar');
+            const status = document.getElementById('export-status');
+            exportOverlay.classList.add('active');
+            progressBar.style.width = '0%'; status.textContent = label;
+            await sleep(60);
+            progressBar.style.width = '100%';
+            await sleep(220);
+            status.textContent = doneLabel;
+            await sleep(260);
+            exportOverlay.classList.remove('active');
+        }
+
+        function saveConfig() {
+            const json = JSON.stringify(currentConfigObj(), null, 2);
             ui.exportTxt.value = json;
             navigator.clipboard.writeText(json);
-            alert('✅ Configuración copiada al portapapeles.');
+            flashOverlay('Guardando config...', 'Copiada al portapapeles.');
         }
- 
+
         function loadConfig() {
             const json = prompt('Pega la configuración JSON:');
             if (!json) return;
-            try {
-                const config = JSON.parse(json);
-                ui.cat.value = config.cat; updateCars();
-                setTimeout(() => {
-                    ui.auto.value = config.auto; ui.track.value = config.track;
-                    if (config.tire) ui.neumaticos.value = config.tire;
-                    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-                    const chip = document.querySelector(`.chip[data-mode="${config.mode}"]`);
-                    if (chip) chip.classList.add('active');
-                    ui.modeLabel.innerText = config.mode;
-                    $('slider-traction').value = config.trac;
-                    $('slider-rotation').value = config.rot;
-                    $('slider-stability').value = config.stab;
-                    $('slider-traction-val').innerText = config.trac+'%';
-                    $('slider-rotation-val').innerText = (config.rot>0?'+':'')+(config.rot/100).toFixed(2);
-                    $('slider-stability-val').innerText = (config.stab>0?'+':'')+(config.stab/100).toFixed(2);
-                    ui.vmax.value = config.vmax; ui.transFinal.value = config.fd; calc();
-                }, 50);
-            } catch(e) { alert('JSON inválido.'); }
+            try { applyConfigObj(JSON.parse(json)); }
+            catch(e) { alert('JSON inválido.'); }
         }
- 
+
         /*════════════════════════════════════════════
           INIT
           ════════════════════════════════════════════*/
         function initApp() {
-            buildUI(); populate();
+            buildUI();
+            populate();
+            const autoloaded = tryAutoload();
+            if (!autoloaded) populateDefaults();
             [...SUSP, ...LSD_AERO].forEach(k => {
                 const el = $('in_'+k);
-                if (el) el.addEventListener('input', onManualEdit);
+                if (el) { el.addEventListener('input', onManualEdit); el.addEventListener('blur', onFieldBlur); }
             });
             ui.cat.addEventListener('change', updateCars);
             ui.auto.addEventListener('change', calc);
@@ -766,7 +1077,7 @@
             }));
             $('btn-calc').addEventListener('click', calc);
             $('btn-apply-ai').addEventListener('click', () => { document.querySelector('.chip.mix').click(); calc(); });
-            $('btn-copy').addEventListener('click', () => navigator.clipboard.writeText(ui.exportTxt.value).then(() => alert('✅ Copiado')));
+            $('btn-copy').addEventListener('click', () => { navigator.clipboard.writeText(ui.exportTxt.value); flashOverlay('Copiando ficha...', 'Copiado.'); });
             $('btn-save').addEventListener('click', downloadScreenshot);
             $('btn-load').addEventListener('click', loadConfig);
             ['slider-traction','slider-rotation','slider-stability'].forEach(id => {
@@ -778,10 +1089,12 @@
                 });
                 el.addEventListener('change', calc);
             });
-            $('slider-traction-val').innerText = '45%';
-            $('slider-rotation-val').innerText = '+0.20';
-            $('slider-stability-val').innerText = '-0.25';
-            calc();
+            if (!autoloaded) {
+                $('slider-traction-val').innerText = '45%';
+                $('slider-rotation-val').innerText = '+0.20';
+                $('slider-stability-val').innerText = '-0.25';
+                calc();
+            }
         }
     })();
     </script>
