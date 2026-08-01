@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="es" data-prov="V16PRO" data-builder="viC_Diqz_V16PRO">
 <head>
     <meta charset="UTF-8">
@@ -159,7 +159,7 @@
     </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
-
+ 
     <!-- ═══════════ LOGIN ═══════════ -->
     <div id="login-overlay">
         <h1>V16PRO · ACCESO</h1>
@@ -172,14 +172,14 @@
         </div>
         <div id="login-error"></div>
     </div>
-
+ 
     <!-- ═══════════ EXPORT OVERLAY ═══════════ -->
     <div id="export-overlay" class="export-overlay">
         <div style="font-size:18px;font-weight:700;">EXPORTING...</div>
         <div class="export-progress"><div id="export-progress-bar" class="export-progress-bar"></div></div>
         <div id="export-status" style="font-size:10px;color:var(--muted)"></div>
     </div>
-
+ 
     <!-- ═══════════ APP ═══════════ -->
     <div class="app hidden" id="app-container">
         <div class="topbar">
@@ -270,11 +270,11 @@
             </div>
         </div>
     </div>
-
+ 
     <script>
     (function() {
         "use strict";
-
+ 
         // ═══════════ LOGIN ═══════════
         const CODE = ['square','circle','triangle','square'];
         let buf = [];
@@ -294,7 +294,7 @@
                 dots[buf.length-1].style.color = 'var(--amber)'; if (buf.length === 4) checkLogin();
             }
         }));
-
+ 
         /*════════════════════════════════════════════
           PERFILES DE RANGO, MODO, NEUMÁTICOS
           ════════════════════════════════════════════*/
@@ -352,7 +352,7 @@
             DT:{grip:0.62,heightAdj:+16,freqAdj:-0.7,camberAdj:-0.7,toeAdj:+0.06,arbAdj:-3,lsdAccAdj:-0.12,lsdBrkAdj:+0.15,aeroAdj:0.90,desc:'Tierra/gravilla: mucho recorrido de suspensión, LSD de aceleración abierto, LSD de freno cerrado para rotar con el pedal'},
             SN:{grip:0.38,heightAdj:+18,freqAdj:-1.0,camberAdj:-1.0,toeAdj:+0.10,arbAdj:-4,lsdAccAdj:-0.25,lsdBrkAdj:+0.18,aeroAdj:0.85,desc:'Nieve/hielo: grip mínimo, altura y blandura máximas, LSD muy abierto en aceleración para evitar el patinaje'}
         };
-
+ 
         /*════════════════════════════════════════════
           BASE DE DATOS DE COCHES (con 992 '22)
           ════════════════════════════════════════════*/
@@ -501,7 +501,7 @@
                 { id:"suzuki_cappuccino_91",name:"Suzuki Cappuccino (EA11R) '91",dt:"FR",hp:62,kg:725,dist:51,wb:2.06,cg:0.30,tf:1.34,tr:1.32,dvmax:170,af:0,ar:0,gears:5,tdiam:0.55,redline:6500,range:"ROAD",meta:false }
             ]
         };
-
+ 
         /*════════════════════════════════════════════
           BASE DE DATOS DE CIRCUITOS
           ════════════════════════════════════════════*/
@@ -569,7 +569,7 @@
             { id:"tokyo_expressway_central_cw",name:"Tokyo Expressway - Central Clockwise",preset:"CITY",overrides:{rotation:+0.04},vmax:260,sectors:{slow:9,medium:11,fast:5} },
             { id:"broad_bean_raceway_reverse",name:"Broad Bean Raceway Reverse",preset:"FAST",overrides:{rotation:-0.12},vmax:290,sectors:{slow:2,medium:3,fast:5} }
         ];
-
+ 
         /*════════════════════════════════════════════
           MOTOR DE FÍSICA
           ════════════════════════════════════════════*/
@@ -599,10 +599,10 @@
                 df:0.05 + (aeroFinal*0.90)
             };
         }
-
+ 
         let lastSetup = {};
         let lastCarId = null, lastTrackId = null;
-
+ 
         function generateSetup(car, track, mode, trac, rot, stab) {
             const r = RANGE[car.range];
             if (!r) return {};
@@ -647,19 +647,19 @@
             const clamp01 = v => Math.min(1, Math.max(0, v));
             const factorToRange = (f, range) => clamp(range[0] + (range[1]-range[0])*f, range, 1);
             const mlsd = MODE_LSD_PCT[mode] || MODE_LSD_PCT.MIX;
-
+ 
             const powerFactor = clamp01(0.15 + ptw*0.55); // 0 ≈ auto de calle liviano · 1 ≈ Hypercar/LMP1
             const dtBonus = car.dt==='4WD' ? 1.0 : (car.dt==='MR' ? 0.4 : 0.15); // carácter propio del tren motriz
-
+ 
             const initFactor = clamp01(mlsd.init*0.65 + powerFactor*0.20 + dtBonus*0.15);
             const accFactor  = clamp01(mlsd.acc*0.55 + powerFactor*0.30 + trac*0.15 + (tire.lsdAccAdj||0));
             const brkFactor  = clamp01(mlsd.brk*0.60 + powerFactor*0.10 + slowRatio*0.15 - rot*0.15 + (tire.lsdBrkAdj||0));
-
+ 
             // Valores base del eje motriz principal (trasero en MR/FR/4WD, delantero en FF)
             const driveInit = factorToRange(initFactor, r.lsdI);
             const driveAcc  = factorToRange(accFactor, r.lsdA);
             const driveBrk  = factorToRange(brkFactor, r.lsdB);
-
+ 
             if (car.dt === 'FF') {
                 // FIX: en un FF el diferencial que existe es el DELANTERO. Antes esto se calculaba
                 // igual pero se guardaba en lsdInitR/AccR/BrkR (inexistentes en un FF) y el delantero
@@ -684,20 +684,20 @@
             s.downR = clamp(Math.round(car.ar * track.df * tire.aeroAdj * (me.aeroMult ?? 1)), [0,car.ar]);
             return s;
         }
-
+ 
         function clamp(value, range, step=1) {
             const raw = Math.round(value/step)*step;
             const v = parseFloat(raw.toFixed(4));
             return Math.min(range[1], Math.max(range[0], v));
         }
-
+ 
         // Devuelve los valores de LSD del eje que realmente transmite potencia (trasero en MR/FR/4WD, delantero en FF)
         function drivenLSD(s, car) {
             return car.dt === 'FF'
                 ? { init: s.lsdInitF, acc: s.lsdAccF, brk: s.lsdBrkF }
                 : { init: s.lsdInitR, acc: s.lsdAccR, brk: s.lsdBrkR };
         }
-
+ 
         function scoreSetup(s, car, track) {
             const cl = (v,a,b) => Math.min(b, Math.max(a,v));
             const lsd = drivenLSD(s, car);
@@ -710,7 +710,7 @@
             const total = w.tIn + w.mid + w.ex + w.st + w.brk;
             return Math.round((tIn*w.tIn + mid*w.mid + ex*w.ex + st*w.st + brk*w.brk)/total);
         }
-
+ 
         /*════════════════════════════════════════════
           UI
           ════════════════════════════════════════════*/
@@ -732,13 +732,13 @@
             lsdAccF:'LSD Acel. Del.',lsdAccR:'LSD Acel. Tras.',lsdBrkF:'LSD Fren. Del.',lsdBrkR:'LSD Fren. Tras.',
             downF:'Carga Aer. Del.',downR:'Carga Aer. Tras.'
         };
-
+ 
         function buildUI() {
             ui.susp.innerHTML = SUSP.map(k => `<div class="setup-row"><label>${NAMES[k]}</label><input id="in_${k}" value="0"></div>`).join('');
             ui.lsd.innerHTML = LSD_AERO.map(k => `<div class="setup-row"><label>${NAMES[k]}</label><input id="in_${k}" value="0"></div>`).join('');
             buildGearGrid(6);
         }
-
+ 
         let lastGearCount = 0;
         function buildGearGrid(n) {
             n = Math.min(Math.max(n,4),8);
@@ -746,7 +746,7 @@
             ui.gears.innerHTML = Array.from({length:n}, (_,i) => `<input id="gear${i+1}" value="0.000" readonly>`).join('');
             lastGearCount = n;
         }
-
+ 
         function populate() {
             ui.cat.innerHTML = Object.keys(CARS).map(c => `<option>${c}</option>`).join('');
             ui.track.innerHTML = TRACKS.map(t => `<option>${t.name}</option>`).join('');
@@ -754,13 +754,13 @@
         function populateDefaults() {
             ui.cat.value = 'Gr.3'; updateCars(); ui.track.value = 'Suzuka Circuit';
         }
-
+ 
         function updateCars() {
             const cars = CARS[ui.cat.value];
             ui.auto.innerHTML = cars ? cars.map(c => `<option>${c.meta?'★ ':''}${c.name}</option>`).join('') : '';
             calc();
         }
-
+ 
         function calc() {
             const car = getCar(), track = getTrack();
             if (!car || !track) return;
@@ -769,7 +769,7 @@
             const rot = parseFloat($('slider-rotation').value)/100;
             const stab = parseFloat($('slider-stability').value)/100;
             const s = generateSetup(car, track, mode, trac, rot, stab);
-
+ 
             for (let k in s) {
                 const el = $('in_'+k);
                 if (!el) continue;
@@ -782,7 +782,7 @@
                 }
             }
             lastSetup = {...s};
-
+ 
             const carChanged = lastCarId !== car.id;
             const trackChanged = lastTrackId !== track.name;
             if (carChanged || trackChanged) {
@@ -793,7 +793,7 @@
                 ui.transFinal.value = fdDefault.toFixed(3);
             }
             lastCarId = car.id; lastTrackId = track.name;
-
+ 
             const vmax = parseFloat(ui.vmax.value) || Math.min(car.dvmax, track.vmax+10);
             const fd = parseFloat(ui.transFinal.value) || (RANGE[car.range].fd[0]+RANGE[car.range].fd[1])/2;
             const gearCount = Math.min(Math.max(car.gears,4),8);
@@ -809,7 +809,7 @@
             updateDerivedUI(s, car, track, mode, fd);
             autosave();
         }
-
+ 
         function updateDerivedUI(s, car, track, mode, fd) {
             const score = scoreSetup(s, car, track);
             animateScore(score);
@@ -832,7 +832,7 @@
             const tire = TIRE_EFFECTS[ui.neumaticos.value];
             ui.knowBox.innerText = `🧪 ${me.desc}. Neumático: ${ui.neumaticos.value} (${tire.desc}). LSD Acc: ${lsd.acc} | LSD Brk: ${lsd.brk} | Altura: ${s.heightF}/${s.heightR} | Camber: ${s.camberF}°/${s.camberR}°`;
         }
-
+ 
         function animateScore(target) {
             const el = ui.score;
             if (!el) return;
@@ -854,7 +854,7 @@
                 }
             }, interval);
         }
-
+ 
         function animateRadar(pts) {
             const poly = document.getElementById('radar-polygon');
             if (!poly) return;
@@ -873,7 +873,7 @@
             const start = performance.now();
             const from = oldPoints.map(p => [p[0], p[1]]);
             const to = newPoints;
-
+ 
             function step(now) {
                 const progress = Math.min(1, (now - start) / duration);
                 const eased = 1 - Math.pow(1 - progress, 3); // ease-out
@@ -887,7 +887,7 @@
             }
             requestAnimationFrame(step);
         }
-
+ 
         function readCurrentSetup() {
             const s = {};
             [...SUSP, ...LSD_AERO].forEach(k => {
@@ -896,7 +896,7 @@
             });
             return s;
         }
-
+ 
         function getFieldBounds(key, car, r) {
             const map = {
                 heightF:r.hF, heightR:r.hR, arbF:r.arbF, arbR:r.arbR,
@@ -909,7 +909,7 @@
             };
             return map[key] || null;
         }
-
+ 
         function onFieldBlur(e) {
             const car = getCar();
             if (!car) return;
@@ -924,7 +924,7 @@
             e.target.value = v;
             onManualEdit();
         }
-
+ 
         function onManualEdit() {
             const car = getCar(), track = getTrack();
             if (!car || !track) return;
@@ -932,7 +932,7 @@
             const fd = parseFloat(ui.transFinal.value) || 0;
             updateDerivedUI(readCurrentSetup(), car, track, mode, fd);
         }
-
+ 
         /*════════════════════════════════════════════
           EXPORTACIÓN CON OVERLAY
           ════════════════════════════════════════════*/
@@ -975,7 +975,7 @@
             exportOverlay.classList.remove('active');
         }
         function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
+ 
         function currentConfigObj() {
             return {
                 cat:ui.cat.value, auto:ui.auto.value, track:ui.track.value,
@@ -985,7 +985,7 @@
                 stab:$('slider-stability').value, vmax:ui.vmax.value, fd:ui.transFinal.value
             };
         }
-
+ 
         function applyConfigObj(config) {
             ui.cat.value = config.cat; updateCars();
             setTimeout(() => {
@@ -1007,7 +1007,7 @@
                 calc();
             }, 50);
         }
-
+ 
         // ── Autoguardado local (archivo standalone, no artifact) ──
         function autosave() {
             try { localStorage.setItem('v16pro_last_config', JSON.stringify(currentConfigObj())); } catch(e) {}
@@ -1020,7 +1020,7 @@
                 return true;
             } catch(e) { return false; }
         }
-
+ 
         // Feedback breve reusando el overlay de exportación, sin alert()
         async function flashOverlay(label, doneLabel) {
             const exportOverlay = document.getElementById('export-overlay');
@@ -1035,21 +1035,21 @@
             await sleep(260);
             exportOverlay.classList.remove('active');
         }
-
+ 
         function saveConfig() {
             const json = JSON.stringify(currentConfigObj(), null, 2);
             ui.exportTxt.value = json;
             navigator.clipboard.writeText(json);
             flashOverlay('Guardando config...', 'Copiada al portapapeles.');
         }
-
+ 
         function loadConfig() {
             const json = prompt('Pega la configuración JSON:');
             if (!json) return;
             try { applyConfigObj(JSON.parse(json)); }
             catch(e) { alert('JSON inválido.'); }
         }
-
+ 
         /*════════════════════════════════════════════
           INIT
           ════════════════════════════════════════════*/
